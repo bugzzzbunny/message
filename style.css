@@ -1,173 +1,160 @@
-:root {
-  --bg: #05040a;
-  --fg: #f7f0ff;
-  --accent: #ff6b9c;
-  --muted: #8b7fa3;
-  --glow: rgba(255, 255, 255, 0.25);
-}
-
-body {
+/* ------------------------------
+   GLOBAL RESET & BASE
+--------------------------------*/
+* {
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle at top, #1b1026 0, #05040a 55%);
-  color: var(--fg);
-  font-family: system-ui, sans-serif;
-  height: 100vh;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background: #0d0d0f;
+  font-family: "Inter", sans-serif;
+  color: #fff;
   overflow: hidden;
+}
+
+/* Smooth fade for all transitions */
+.fade {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.fade.visible {
+  opacity: 1;
+}
+
+/* ------------------------------
+   MAIN CONTAINER
+--------------------------------*/
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 120px; /* space for bottom ritual area */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.screen {
-  position: absolute;
-  width: 100%;
-  max-width: 480px;
-  padding: 24px;
+/* ------------------------------
+   CENTER MESSAGE BUBBLE
+--------------------------------*/
+.message-bubble {
+  max-width: 80%;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  font-size: 1.2rem;
+  line-height: 1.45;
   text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
+  animation: bubbleFade 0.6s ease forwards;
 }
 
-.screen.active {
+@keyframes bubbleFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------
+   ORBITING EMOJI SELECTOR
+--------------------------------*/
+.orbit-container {
+  position: absolute;
+  bottom: 40px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbit {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: orbitSpin 12s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.orbit-emoji {
+  position: absolute;
+  font-size: 2rem;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/* Glow on hover */
+.orbit-emoji:hover {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.6));
+}
+
+/* Positioning emojis around the circle */
+.orbit-emoji:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+.orbit-emoji:nth-child(2) { top: 20%; right: 0; transform: translateY(-50%); }
+.orbit-emoji:nth-child(3) { bottom: 20%; right: 0; transform: translateY(50%); }
+.orbit-emoji:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%); }
+.orbit-emoji:nth-child(5) { bottom: 20%; left: 0; transform: translateY(50%); }
+.orbit-emoji:nth-child(6) { top: 20%; left: 0; transform: translateY(-50%); }
+
+/* ------------------------------
+   BOTTOM RITUAL AREA
+--------------------------------*/
+.bottom-panel {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 24px 0 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+/* ------------------------------
+   LAYERED REVEAL SECTIONS
+--------------------------------*/
+.layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.layer.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.title {
-  font-size: 1.6rem;
-  margin-bottom: 40px;
-  text-wrap: balance;
-}
-
-/* ORBIT CONTAINER */
-.orbit {
-  position: relative;
-  width: 260px;
-  height: 260px;
-  margin: 0 auto;
-  animation: orbit-medium 16s linear infinite;
-}
-
-.orbit.slow {
-  animation: orbit-slow 36s linear infinite;
-}
-
-/* MOOD BUTTONS IN PERFECT CIRCLE */
-.mood-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 2.4rem;
-  transform-origin: -100px 0; /* radius of the circle */
+/* ------------------------------
+   BUTTONS (for debugging or rituals)
+--------------------------------*/
+button {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px 16px;
+  border-radius: 10px;
+  color: #fff;
   cursor: pointer;
-  transition: transform 0.25s ease, filter 0.25s ease;
-  filter: drop-shadow(0 0 6px var(--glow));
-  animation: glow 3s ease-in-out infinite;
-}
-
-/* Evenly spaced around the circle */
-.mood-btn:nth-child(1) { transform: rotate(0deg) translateX(100px) rotate(0deg); }
-.mood-btn:nth-child(2) { transform: rotate(72deg) translateX(100px) rotate(-72deg); }
-.mood-btn:nth-child(3) { transform: rotate(144deg) translateX(100px) rotate(-144deg); }
-.mood-btn:nth-child(4) { transform: rotate(216deg) translateX(100px) rotate(-216deg); }
-.mood-btn:nth-child(5) { transform: rotate(288deg) translateX(100px) rotate(-288deg); }
-
-/* Hover effect */
-.mood-btn:hover {
-  transform: scale(1.25) translateX(100px);
-  filter: drop-shadow(0 0 12px var(--accent));
-}
-
-/* Bottom-weighted positions */
-.mood-btn:nth-child(1) { top: 10%; left: 50%; transform: translateX(-50%); }
-.mood-btn:nth-child(2) { top: 35%; left: 15%; }
-.mood-btn:nth-child(3) { top: 35%; right: 15%; }
-.mood-btn:nth-child(4) { bottom: 12%; left: 30%; }
-.mood-btn:nth-child(5) { bottom: 12%; right: 30%; }
-
-.mood-btn:hover {
-  transform: scale(1.25);
-  filter: drop-shadow(0 0 12px var(--accent));
-}
-
-/* Glow animation */
-@keyframes glow {
-  0%, 100% { filter: drop-shadow(0 0 6px var(--glow)); }
-  50% { filter: drop-shadow(0 0 14px var(--accent)); }
-}
-
-/* Orbit speeds */
-@keyframes orbit-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes orbit-medium {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* BRANCH SELECTION */
-.branch-title {
-  font-size: 1.4rem;
-  margin-bottom: 24px;
-}
-
-.branch-options {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.branch-btn {
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: #181325;
-  color: var(--fg);
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.branch-btn:hover {
-  background: #241733;
-  transform: translateY(-2px);
-}
-
-/* REVEAL */
-.layer-text {
-  font-size: 1.4rem;
-  margin-bottom: 12px;
-  min-height: 120px;
-}
-
-.layer-counter {
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-/* ENDING */
-.ending-text {
-  font-size: 1.4rem;
-  margin-bottom: 24px;
-}
-
-.restart-btn {
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: #181325;
-  color: var(--fg);
-  border: none;
-  cursor: pointer;
+  font-size: 1rem;
   transition: background 0.2s ease;
 }
 
-.restart-btn:hover {
-  background: #241733;
+button:hover {
+  background: rgba(255,255,255,0.2);
 }
