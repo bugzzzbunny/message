@@ -8,34 +8,26 @@ const layers = [
 
 const layerText = document.getElementById("layer-text");
 const layerCounter = document.getElementById("layer-counter");
-const nextBtn = document.getElementById("next-btn");
+const app = document.querySelector(".app");
 
 let index = 0;
 
 function updateLayer() {
   layerText.classList.remove("fade-in");
-  void layerText.offsetWidth; // restart animation
+  void layerText.offsetWidth; 
   layerText.classList.add("fade-in");
 
   layerText.textContent = layers[index];
   layerCounter.textContent = `${index + 1} / ${layers.length}`;
-
-  if (index === layers.length - 1) {
-    nextBtn.textContent = "end of the night";
-    nextBtn.disabled = true;
-    nextBtn.style.opacity = "0.6";
-    nextBtn.style.cursor = "default";
-  }
 }
 
-nextBtn.addEventListener("click", () => {
+app.addEventListener("click", () => {
   if (index < layers.length - 1) {
     index++;
     updateLayer();
   }
 });
 
-// simple fade-in effect via CSS class
 const style = document.createElement("style");
 style.textContent = `
   .fade-in {
