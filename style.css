@@ -40,6 +40,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.6s ease;
 }
 
 /* Rotating ring */
@@ -56,8 +57,46 @@ body {
   to   { transform: rotate(360deg); }
 }
 
+/* ------------------------------
+   EMOJIS
+--------------------------------*/
+.mood-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  transform: translate(-50%, -50%);
+}
 
-/* MINI TREES */
+.mood-btn:hover {
+  transform: translate(-50%, -50%) scale(1.3);
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.7));
+}
+
+/* ------------------------------
+   EVEN SPACING (5 emojis)
+--------------------------------*/
+.mood-btn:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(0deg) translate(110px) rotate(0deg);
+}
+.mood-btn:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(72deg) translate(110px) rotate(-72deg);
+}
+.mood-btn:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(144deg) translate(110px) rotate(-144deg);
+}
+.mood-btn:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(216deg) translate(110px) rotate(-216deg);
+}
+.mood-btn:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(288deg) translate(110px) rotate(-288deg);
+}
+
+/* ------------------------------
+   MINI TREES
+--------------------------------*/
 .mini-tree {
   position: absolute;
   top: 50%;
@@ -94,29 +133,3 @@ body {
 .mini-tree button:hover {
   background: rgba(255,255,255,0.2);
 }
-
-/* ------------------------------
-   EMOJIS
---------------------------------*/
-.orbit-emoji {
-  position: absolute;
-  font-size: 2rem;
-  cursor: pointer;
-  transition: transform 0.25s ease, filter 0.25s ease;
-}
-
-/* Glow on hover */
-.orbit-emoji:hover {
-  transform: scale(1.3);
-  filter: drop-shadow(0 0 10px rgba(255,255,255,0.7));
-}
-
-/* ------------------------------
-   EVEN SPACING (6 emojis)
---------------------------------*/
-.orbit-emoji:nth-child(1) { transform: rotate(0deg)   translate(130px) rotate(0deg); }
-.orbit-emoji:nth-child(2) { transform: rotate(60deg)  translate(130px) rotate(-60deg); }
-.orbit-emoji:nth-child(3) { transform: rotate(120deg) translate(130px) rotate(-120deg); }
-.orbit-emoji:nth-child(4) { transform: rotate(180deg) translate(130px) rotate(-180deg); }
-.orbit-emoji:nth-child(5) { transform: rotate(240deg) translate(130px) rotate(-240deg); }
-.orbit-emoji:nth-child(6) { transform: rotate(300deg) translate(130px) rotate(-300deg); }
