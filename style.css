@@ -56,6 +56,45 @@ body {
   to   { transform: rotate(360deg); }
 }
 
+
+/* MINI TREES */
+.mini-tree {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.mini-tree.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mini-tree h2 {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+}
+
+.mini-tree button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mini-tree button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
 /* ------------------------------
    EMOJIS
 --------------------------------*/
