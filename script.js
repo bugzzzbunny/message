@@ -1,43 +1,33 @@
-// script.js
-const layers = [
-  "There’s something I only think about after midnight.",
-  "It shows up when the lights are low and my guard is even lower.",
-  "It’s that warm, restless pull toward you — the one I pretend I can ignore, but it keeps brushing against my thoughts like fingertips tracing a secret.",
-  "If I’m honest… you’re the reason the night feels hotter than it should."
-];
+// =========================
+// DATA STRUCTURE
+// =========================
 
-const layerText = document.getElementById("layer-text");
-const layerCounter = document.getElementById("layer-counter");
-const app = document.querySelector(".app");
+const moodBranches = {
+  romantic: ["Something soft", "Something longing"],
+  playful: ["Tease me", "Surprise me"],
+  mysterious: ["Whisper", "Shadow"],
+  spicy: ["Heat", "Closer"],
+  devilish: ["Tempt me", "Dare me"]
+};
 
-let index = 0;
+const moodLayers = {
+  romantic: {
+    "Something soft": [
+      "The night feels warmer when I think of you.",
+      "There’s a softness in the dark that pulls me closer.",
+      "Your presence lingers like a gentle touch.",
+      "If I’m honest… I like the way you feel in my thoughts."
+    ],
+    "Something longing": [
+      "There’s a quiet ache tonight.",
+      "A pull toward something familiar… and you.",
+      "It’s the kind of longing that doesn’t ask permission.",
+      "And it’s your name it whispers."
+    ]
+  },
 
-function updateLayer() {
-  layerText.classList.remove("fade-in");
-  void layerText.offsetWidth; 
-  layerText.classList.add("fade-in");
-
-  layerText.textContent = layers[index];
-  layerCounter.textContent = `${index + 1} / ${layers.length}`;
-}
-
-app.addEventListener("click", () => {
-  if (index < layers.length - 1) {
-    index++;
-    updateLayer();
-  }
-});
-
-const style = document.createElement("style");
-style.textContent = `
-  .fade-in {
-    animation: fadeIn 260ms ease-out;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-`;
-document.head.appendChild(style);
-
-updateLayer();
+  playful: {
+    "Tease me": [
+      "You know exactly what you’re doing.",
+      "That little spark you drop into my thoughts…",
+      "It’s unfair how easily you
