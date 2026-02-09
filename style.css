@@ -1,74 +1,133 @@
-/* style.css */
 :root {
   --bg: #05040a;
   --fg: #f7f0ff;
   --accent: #ff6b9c;
   --muted: #8b7fa3;
-  --button-bg: #181325;
-  --button-bg-hover: #241733;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+  --glow: rgba(255, 255, 255, 0.25);
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", sans-serif;
   background: radial-gradient(circle at top, #1b1026 0, #05040a 55%);
   color: var(--fg);
-  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
 }
 
-.app {
+.screen {
+  position: absolute;
   width: 100%;
   max-width: 480px;
+  padding: 24px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.title {
+  font-size: 1.6rem;
+  margin-bottom: 40px;
+  text-wrap: balance;
+}
+
+/* ORBIT */
+.orbit {
+  position: relative;
+  width: 260px;
+  height: 260px;
   margin: 0 auto;
-  padding: 24px 18px 32px;
+  animation: orbit-medium 16s linear infinite;
+}
+
+.orbit.slow {
+  animation: orbit-slow 36s linear infinite;
+}
+
+.mood-btn {
+  position: absolute;
+  font-size: 2.4rem;
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  filter: drop-shadow(0 0 6px var(--glow));
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Bottom-weighted positions */
+.mood-btn:nth-child(1) { top: 10%; left: 50%; transform: translateX(-50%); }
+.mood-btn:nth-child(2) { top: 35%; left: 15%; }
+.mood-btn:nth-child(3) { top: 35%; right: 15%; }
+.mood-btn:nth-child(4) { bottom: 12%; left: 30%; }
+.mood-btn:nth-child(5) { bottom: 12%; right: 30%; }
+
+.mood-btn:hover {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 12px var(--accent));
+}
+
+/* Glow animation */
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 6px var(--glow)); }
+  50% { filter: drop-shadow(0 0 14px var(--accent)); }
+}
+
+/* Orbit speeds */
+@keyframes orbit-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-medium {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* BRANCH SELECTION */
+.branch-title {
+  font-size: 1.4rem;
+  margin-bottom: 24px;
+}
+
+.branch-options {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-.meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--accent);
-  box-shadow: 0 0 10px rgba(255, 107, 156, 0.9);
-}
-
-.content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: 16px;
-  padding: 0 4px;
 }
 
+.branch-btn {
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: #181325;
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.branch-btn:hover {
+  background: #241733;
+  transform: translateY(-2px);
+}
+
+/* REVEAL */
 .layer-text {
   font-size: 1.4rem;
-  line-height: 1.5;
-  text-align: left;
-  text-wrap: balance;
+  margin-bottom: 12px;
+  min-height: 120px;
 }
 
 .layer-counter {
@@ -76,35 +135,22 @@ body {
   color: var(--muted);
 }
 
-.next-btn {
-  width: 100%;
-  border: none;
+/* ENDING */
+.ending-text {
+  font-size: 1.4rem;
+  margin-bottom: 24px;
+}
+
+.restart-btn {
+  padding: 12px 18px;
   border-radius: 999px;
-  padding: 14px 18px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: var(--button-bg);
+  background: #181325;
   color: var(--fg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  border: none;
   cursor: pointer;
-  transition: background 0.18s ease, transform 0.12s ease;
+  transition: background 0.2s ease;
 }
 
-.next-btn:active {
-  transform: translateY(1px) scale(0.99);
-}
-
-.next-btn:hover {
-  background: var(--button-bg-hover);
-}
-
-@media (min-width: 768px) {
-  .layer-text {
-    font-size: 1.6rem;
-  }
+.restart-btn:hover {
+  background: #241733;
 }
