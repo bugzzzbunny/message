@@ -46,7 +46,7 @@ body {
   text-wrap: balance;
 }
 
-/* ORBIT */
+/* ORBIT CONTAINER */
 .orbit {
   position: relative;
   width: 260px;
@@ -59,13 +59,30 @@ body {
   animation: orbit-slow 36s linear infinite;
 }
 
+/* MOOD BUTTONS IN PERFECT CIRCLE */
 .mood-btn {
   position: absolute;
+  top: 50%;
+  left: 50%;
   font-size: 2.4rem;
+  transform-origin: -100px 0; /* radius of the circle */
   cursor: pointer;
   transition: transform 0.25s ease, filter 0.25s ease;
   filter: drop-shadow(0 0 6px var(--glow));
   animation: glow 3s ease-in-out infinite;
+}
+
+/* Evenly spaced around the circle */
+.mood-btn:nth-child(1) { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+.mood-btn:nth-child(2) { transform: rotate(72deg) translateX(100px) rotate(-72deg); }
+.mood-btn:nth-child(3) { transform: rotate(144deg) translateX(100px) rotate(-144deg); }
+.mood-btn:nth-child(4) { transform: rotate(216deg) translateX(100px) rotate(-216deg); }
+.mood-btn:nth-child(5) { transform: rotate(288deg) translateX(100px) rotate(-288deg); }
+
+/* Hover effect */
+.mood-btn:hover {
+  transform: scale(1.25) translateX(100px);
+  filter: drop-shadow(0 0 12px var(--accent));
 }
 
 /* Bottom-weighted positions */
